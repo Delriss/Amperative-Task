@@ -13,7 +13,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 //Test Route for Quotes
-Route::get('/quotes', [QuoteController::class, 'getQuotes'])->name('quotes.get');
+Route::get('/quotes/{number}', [QuoteController::class, 'getRandomQuotes'])->name('quotes.get');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
