@@ -3,6 +3,10 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Kanye Quotes') }}
         </h2>
+
+        <div class="flex justify-end">
+            <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 dark:text-gray-300 underline">Refresh</a>
+        </div>
     </x-slot>
 
     <div class="py-12">
