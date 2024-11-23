@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminnate\Http\JsonResponse;
+use Illuminate\Http\JsonResponse;
 
 class QuoteController extends Controller
 {
@@ -32,7 +32,7 @@ class QuoteController extends Controller
         }
     }
 
-    private function getRandomQuotes($number) //Function to get a number of random Quotes from the Kanye Rest API
+    public function getRandomQuotes($number) //Function to get a number of random Quotes from the Kanye Rest API
     {
         //Get all Quotes from the Kanye Rest API
         $quotes = $this->getQuotes();
@@ -66,5 +66,18 @@ class QuoteController extends Controller
         return view('dashboard')->with([
             'quotes' => $randomQuotes
         ]);
+    }
+
+    public function show(Request $request)
+    {
+        //Get the number of Quotes to get from the User
+        $number = $request->input('number');
+
+        //Get $number of random Quotes from the Kanye Rest API
+        $randomQuotes = $this->getRandomQuotes($number);
+        
+        //Return the Collection of Quotes to the Endpoint
+        return new JsonResponse($randomQuotes);
+        
     }
 }
