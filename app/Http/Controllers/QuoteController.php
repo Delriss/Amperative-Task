@@ -4,32 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 class QuoteController extends Controller
 {
-    private function getQuotes() //Function to get all Quotes from Kanye Rest API
+    private function getQuotes()
     {
         //API Call to get all Quotes from Kanye Rest API
-        $response = Http::get('api.kanye.rest/quotes');
+        $quotes = Cache::flexible(
+            'quotes',
+            [now()->addHour(), now()->addDay()],
+            function () {
+                $response = Http::get('https://api.kanye.rest/quotes');
 
-        //Check if the API call was successful
-        if ($response->successful()) {
-            //Initialise Collection for Quotes
-            $quotes = collect();
+                if ($response->failed()) {
+                    return "Failed to get quotes";
+                }
 
-            //Loop through the quotes and add them to the collection
-            foreach ($response->json() as $quote) {
-                $quotes->push($quote);
+                return $response->json();
             }
+        );
 
-            //Return Collection
-            return $quotes;
-
-            //Check if the API call was not successful
-        } else {
-            return "Failed to get quotes";
-        }
+        return collect($quotes);
     }
 
     public function getRandomQuotes($number) //Function to get a number of random Quotes from the Kanye Rest API
