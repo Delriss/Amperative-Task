@@ -28,11 +28,11 @@ class QuoteController extends Controller
 
         //Check if the API call was not successful
         } else {
-            return response()->json(['message' => 'Failed to get quotes'], 500); //Return an error message
+            return "Failed to get quotes";
         }
     }
 
-    private function getRandomQuotes($number) //Function to get a number of random Quotes from the Kanye Rest API
+    public function getRandomQuotes($number) //Function to get a number of random Quotes from the Kanye Rest API
     {
         //Get all Quotes from the Kanye Rest API
         $quotes = $this->getQuotes();
@@ -51,7 +51,7 @@ class QuoteController extends Controller
         //Check if the Quotes were not successfully retrieved
         else
         {
-            return response()->json(['message' => 'Failed to get random quotes'], 500); //Return an error message
+            return "Failed to get random quotes";
         }
     }
 }
