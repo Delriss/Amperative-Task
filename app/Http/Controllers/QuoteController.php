@@ -8,23 +8,50 @@ use Illuminnate\Http\JsonResponse;
 
 class QuoteController extends Controller
 {
-    public function getQuotes()
+    private function getQuotes() //Function to get all Quotes from Kanye Rest API
     {
-        $quotes = []; //Array to store quotes
+        //API Call to get all Quotes from Kanye Rest API
+        $response = Http::get('api.kanye.rest/quotes');
 
-        for ($i = 0; $i < 5; $i++) { //Loop for 5 Quotes
-            //Get Quotes from API (Returns JSON as per Docs)
-            $response = Http::get('https://api.kanye.rest');
+        //Check if the API call was successful
+        if ($response->successful()) {
+            //Initialise Collection for Quotes
+            $quotes = collect();
 
-            //Check if the request was successful
-            if ($response->successful()) {
-                //Add Quote to Array
-                $quotes[] = $response->json()['quote'];
-            } else {
-                //Return Error if request failed
-                return response()->json(['error' => 'Failed to get quotes'], 500);
+            //Loop through the quotes and add them to the collection
+            foreach ($response->json() as $quote) {
+                $quotes->push($quote);
             }
+
+            //Return Collection
+            return $quotes;
+
+        //Check if the API call was not successful
+        } else {
+            return response()->json(['message' => 'Failed to get quotes'], 500); //Return an error message
         }
-        return response()->json(['quotes' => $quotes], 200); //Return Quotes
+    }
+
+    private function getRandomQuotes($number) //Function to get a number of random Quotes from the Kanye Rest API
+    {
+        //Get all Quotes from the Kanye Rest API
+        $quotes = $this->getQuotes();
+
+        //Check if the Quotes were successfully retrieved
+        if ($quotes->count() > 0) {
+            //Initialise Collection for Random Quotes
+            $randomQuotes = collect();
+
+            //Get $number of random Quotes from the Quotes Collection
+            $randomQuotes = $quotes->random($number);
+
+            //Return Collection
+            return $randomQuotes;
+        }
+        //Check if the Quotes were not successfully retrieved
+        else
+        {
+            return response()->json(['message' => 'Failed to get random quotes'], 500); //Return an error message
+        }
     }
 }
