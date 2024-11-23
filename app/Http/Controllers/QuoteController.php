@@ -63,8 +63,8 @@ class QuoteController extends Controller
         $randomQuotes = $this->getRandomQuotes($number);
 
         //Return the Quotes to the User
-        return view('dashboard')->with(
-            'quotes', $randomQuotes
-        );
+        return view('dashboard')->with([
+            'quotes' => $randomQuotes
+        ]);
     }
 }
