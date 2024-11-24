@@ -43,7 +43,7 @@
                     <p class="text-gray-800 dark:text-gray-200">Kanye Quotes is a simple web application that fetches random quotes from the Kanye West Quotes API available at <a href="https://kanye.rest" class="text-blue-500 hover:underline">kanye.rest</a>.</p>
                     <p class="text-gray-800 dark:text-gray-200">The application will generate unique randomised quotes on each load and via the refresh button at the top of the page.</p>
                     <p class="text-gray-800 dark:text-gray-200">You are able to access the local API endpoint at <code class="text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 p-1 rounded-md">/api/quotes</code> to get a random Kanye West quote.</p>
-                    <p class="text-gray-800 dark:text-gray-200">Further, you are able to retrieve multiple results through adding a query parameter <code class="text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 p-1 rounded-md">count</code> to the endpoint. For example, <code class="text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 p-1 rounded-md">/api/quotes?count=5</code> will return 5 random Kanye West quotes.</p>
+                    <p class="text-gray-800 dark:text-gray-200">Further, you are able to retrieve multiple results through adding a query parameter <code class="text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 p-1 rounded-md">number</code> to the endpoint. For example, <code class="text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 p-1 rounded-md">/api/quotes?number=5</code> will return 5 random Kanye West quotes.</p>
                 </div>
             </div>
         </div>
